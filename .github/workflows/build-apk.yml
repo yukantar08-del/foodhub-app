@@ -36,7 +36,7 @@ jobs:
 
       - name: Create Android project
         run: |
-          flutter create --platforms=android .
+          flutter create --platforms=android --project-name foodhub_app .
 
       - name: Install dependencies
         run: flutter pub get
