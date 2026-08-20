@@ -1,0 +1,43 @@
+name: Build FoodHub APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "stable"
+          channel: stable
+
+      - name: Extract FoodHub source
+        run: |
+          unzip -q FoodHub_v0.6_Integrated_App.zip
+          mkdir -p buildapp
+          cd buildapp
+          flutter create --platforms=android .
+          cp -r ../foodhub_v0_6_integrated_app/lib/* lib/
+
+      - name: Install dependencies
+        working-directory: buildapp
+        run: flutter pub get
+
+      - name: Build APK
+        working-directory: buildapp
+        run: flutter build apk --release
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: FoodHub-APK
+          path: buildapp/build/app/outputs/flutter-apk/app-release.apk
