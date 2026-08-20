@@ -34,6 +34,10 @@ jobs:
           echo "Mencari pubspec.yaml:"
           find . -name pubspec.yaml -not -path './.git/*'
 
+      - name: Create Android project
+        run: |
+          flutter create --platforms=android .
+
       - name: Install dependencies
         run: flutter pub get
 
