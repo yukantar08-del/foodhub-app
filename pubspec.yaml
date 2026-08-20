@@ -1,4 +1,4 @@
-name: foodhub
+name: foodhub_app
 
 description: FoodHub v0.6 prototype - customer, merchant, driver, and admin roles.
 publish_to: "none"
